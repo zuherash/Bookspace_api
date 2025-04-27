@@ -51,19 +51,18 @@ python manage.py runserver
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-📚 Core API Endpoints
-Here are some key endpoints you can interact with:
+## 📚 Core API Endpoints
 
+Here are the main API endpoints:
 
-Method	URL	Purpose
-POST	/api/auth/register/	Register a new user
-POST	/api/auth/login/	Login and obtain tokens
-GET	/api/books/	List all available books
-POST	/api/books/	Add a new book (admin only)
-GET	/api/books/{id}/	Retrieve a book details
-PUT	/api/books/{id}/	Update a book
-DELETE	/api/books/{id}/	Delete a book
-(Endpoints may vary based on your project version.)
+- **POST** `/api/auth/register/` → Register a new user
+- **POST** `/api/auth/login/` → User login and obtain authentication tokens
+- **GET** `/api/books/` → List all available books
+- **POST** `/api/books/` → Add a new book (admin only)
+- **GET** `/api/books/{id}/` → Get details of a specific book
+- **PUT** `/api/books/{id}/` → Update an existing book
+- **DELETE** `/api/books/{id}/` → Delete a book
+
 
 📩 Contact
 Need help or want to collaborate?
