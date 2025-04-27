@@ -9,9 +9,14 @@ class Bookpagination(PageNumberPagination):
 class BookRetrieveAPIView(generics.RetrieveAPIView):
     queryset=Book.objects.all()
     serializer_class= BookSerializer
-    lookup_field='id'
+
 
 class BookListCreateAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     pagination_class = Bookpagination
+
+class BookUpdateAPIView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = 'pk'
