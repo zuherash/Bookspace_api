@@ -22,17 +22,26 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     search_fields = ['title','author']
     ordering_fields = ['title','created_at']
     ordering = ['-created_at']
-    
+    permission_classes = [IsAuthenticated]
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
-
+    
+@api_view(['POST'])
+def register(request):
+    if request.method == 'POST':
+        serializer = Registerserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save() 
+            return Response({'message':'User Registered Succesfuly'})
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
 
