@@ -3,6 +3,7 @@ from .views import (
     BookListCreateAPIView,
     BookRetrieveUpdateDestroyAPIView,
     )
+from . import views
 
 
 urlpatterns = [

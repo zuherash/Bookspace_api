@@ -5,7 +5,12 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .filters import BookFilter
-
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework import viewsets
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import Registerserializer
 class Bookpagination(PageNumberPagination):
     page_size='5'
 class BookListCreateAPIView(generics.ListCreateAPIView):
@@ -22,6 +27,11 @@ class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'pk'
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
 
 
