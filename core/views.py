@@ -44,9 +44,9 @@ def register(request):
             serializer.save() 
             refresh = RefreshToken.for_user(User)
             return Response({'message':'User Registered Succesfuly',
-                             'referesh':str(refresh),
-                             'access' :str(refresh.access_token)
-                             },status=status.HTTP_201_CREATED)
+                    'referesh':str(refresh),
+                    'access' :str(refresh.access_token)
+                            },status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
