@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book,Invoice
+from .serializers import BookSerializer,InvoiceSerializer
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -14,6 +14,7 @@ from rest_framework.decorators import api_view
 from .serializers import Registerserializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
+from .permissions import IsAdminOrAccountant,IsAuditorReadOnly
 class Bookpagination(PageNumberPagination):
     page_size='5'
 class BookListCreateAPIView(generics.ListCreateAPIView):
@@ -38,6 +39,18 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
+class InvoiceListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+    permission_classes = [IsAuthenticated,IsAdminOrAccountant]
+    
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
+class InvoiceDetailAPIView(generics.RetrieveAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+    permission_classes = [IsAuthenticated,IsAdminOrAccountant|IsAuditorReadOnly]
+    
     
 @api_view(['POST'])
 def register(request):

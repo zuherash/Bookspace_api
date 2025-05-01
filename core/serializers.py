@@ -1,4 +1,4 @@
-from .models import Book
+from .models import Book,Invoice
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
@@ -8,6 +8,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
+class InvoiceSerializer(serializers.ModelSerializer):
+    model=Invoice
+    fields = '__all__'
     
 from django.contrib.auth.models import User
 from rest_framework import serializers
