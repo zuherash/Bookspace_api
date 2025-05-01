@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Book,Invoice
-from .serializers import BookSerializer,InvoiceSerializer
+from .models import Book,Invoice,Reviews,Comment
+from .serializers import BookSerializer,InvoiceSerializer,CommentSerializer,Reviewserializer
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -50,7 +50,31 @@ class InvoiceDetailAPIView(generics.RetrieveAPIView):
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
     permission_classes = [IsAuthenticated,IsAdminOrAccountant|IsAuditorReadOnly]
-    
+class ReviewsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = Reviewserializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class ReviewsDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = Reviewserializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class CommentListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]    
     
 @api_view(['POST'])
 def register(request):
