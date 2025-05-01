@@ -5,7 +5,8 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .filters import BookFilter
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from .permissions import IsOwnerOrAdmin
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
@@ -24,12 +25,14 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     search_fields = ['title','author']
     ordering_fields = ['title','created_at']
     ordering = ['-created_at']
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def perform_create(self, serializer):
+        serializer.save(User=self.request.user)
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'pk'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsOwnerOrAdmin]
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
