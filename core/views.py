@@ -28,7 +28,9 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     ordering = ['-created_at']
     permission_classes = [IsAuthenticatedOrReadOnly]
     def perform_create(self, serializer):
-        serializer.save(User=self.request.user)
+        serializer.save(user=self.request.user)
+
+
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -71,6 +73,7 @@ class CommentListCreateAPIView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -81,13 +84,14 @@ def register(request):
     if request.method == 'POST':
         serializer = Registerserializer(data=request.data)
         if serializer.is_valid():
-            serializer.save() 
-            refresh = RefreshToken.for_user(User)
-            return Response({'message':'User Registered Succesfuly',
-                    'referesh':str(refresh),
-                    'access' :str(refresh.access_token)
-                            },status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            user = serializer.save()   # احفظ المستخدم الجديد
+            refresh = RefreshToken.for_user(user)  # توليد التوكن لهالمستخدم
+            return Response({
+                'message': 'User Registered Successfully',
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

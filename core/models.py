@@ -8,7 +8,7 @@ class Book(models.Model):
     description = models.TextField(blank=True)
     available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    User = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     def __str__(self):
         return self.title
 class Invoice(models.Model):
@@ -17,7 +17,7 @@ class Invoice(models.Model):
         ('Sell','sell'),
     ]
     Book = models.ForeignKey(Book,on_delete=models.CASCADE)
-    User = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     Invoice_type = models.CharField(max_length=10,choices=INVOICE_TYPES)
     amount = models.DecimalField(max_digits=10,decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
