@@ -49,6 +49,13 @@ python manage.py migrate
 # Run the development server
 python manage.py runserver
 
+# Run tests (uses SQLite by default)
+python manage.py test
+
+Running tests automatically sets the `USE_SQLITE` environment variable to `1`,
+so SQLite is used for test databases. Unset this variable if you prefer running
+tests against PostgreSQL.
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 📚 Core API Endpoints

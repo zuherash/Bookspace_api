@@ -3,6 +3,10 @@
 import os
 import sys
 
+# Automatically use SQLite database when running tests
+if 'test' in sys.argv:
+    os.environ.setdefault('USE_SQLITE', '1')
+
 
 def main():
     """Run administrative tasks."""
