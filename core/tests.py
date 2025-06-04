@@ -16,6 +16,20 @@ class BookFilterTests(TestCase):
             ["title", "author", "available"],
         )
 
+    def test_filter_by_title(self):
+        book_a = Book.objects.create(title="Alpha", author="A")
+        Book.objects.create(title="Beta", author="B")
+
+        qs = BookFilter({"title": "alp"}, queryset=Book.objects.all()).qs
+        self.assertEqual(list(qs), [book_a])
+
+    def test_filter_by_available(self):
+        book_a = Book.objects.create(title="Alpha", author="A", available=True)
+        Book.objects.create(title="Beta", author="B", available=False)
+
+        qs = BookFilter({"available": True}, queryset=Book.objects.all()).qs
+        self.assertEqual(list(qs), [book_a])
+
 
 @override_settings(DATABASES={'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}})
 class PaginationTests(TestCase):
