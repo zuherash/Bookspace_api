@@ -2,10 +2,10 @@ import django_filters
 from .models import Book
 
 class BookFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(lookup_expr='icontains')
-    author = django_filters.CharFilter(lookup_expr='icontains')
+    title = django_filters.CharFilter(lookup_expr="icontains")
+    author = django_filters.CharFilter(lookup_expr="icontains")
     available = django_filters.BooleanFilter()
-    
-    class meta:
+
+    class Meta:
         model = Book
-        fields = ['title','author','avialable']
+        fields = ["title", "author", "available"]

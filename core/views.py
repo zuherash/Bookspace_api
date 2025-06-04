@@ -6,12 +6,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .filters import BookFilter
 
-class Bookpagination(PageNumberPagination):
-    page_size='5'
+class BookPagination(PageNumberPagination):
+    page_size = 5
+
 class BookListCreateAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    pagination_class = Bookpagination
+    pagination_class = BookPagination
     filter_backends = [DjangoFilterBackend , filters.OrderingFilter, filters.SearchFilter]
     filterset_class = BookFilter
     search_fields = ['title','author']
