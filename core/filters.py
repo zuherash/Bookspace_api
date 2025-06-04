@@ -8,4 +8,4 @@ class BookFilter(django_filters.FilterSet):
 
     class Meta:
         model = Book
-        fields = ["title", "author", "available"]
+        fields = ['title', 'author', 'available']
