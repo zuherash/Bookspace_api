@@ -49,6 +49,32 @@ python manage.py migrate
 # Run the development server
 python manage.py runserver
 
+## 🔐 Environment Variables
+
+The `.env` file is excluded from version control so your secrets stay safe. Before running the project or tests, create this file or export the variables below in your shell:
+
+- `SECRET_KEY`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_HOST`
+- `DB_PORT`
+- `USE_SQLITE` *(optional)*
+
+Example `.env`:
+
+```bash
+SECRET_KEY=your-secret-key
+DB_NAME=bookspace_db
+DB_USER=postgres
+DB_PASSWORD=your-db-password
+DB_HOST=localhost
+DB_PORT=5432
+# USE_SQLITE=1
+```
+
+Load these variables with `source .env` (or export them manually) before running `manage.py` commands or executing tests.
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 📚 Core API Endpoints
