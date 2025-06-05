@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .models import Book, Order
-from .serializers import BookSerializer, UserRegistrationSerializer, OrderSerializer
+from .models import Book, Order, Review
+from .serializers import BookSerializer, UserRegistrationSerializer, OrderSerializer, ReviewSerializer
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -34,6 +34,17 @@ class UserRegistrationAPIView(generics.CreateAPIView):
 class OrderListCreateAPIView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+
+class ReviewListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class ReviewRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    lookup_field = 'pk'
 
 
 

@@ -69,6 +69,11 @@ Here are the main API endpoints:
 - **GET** `/api/books/{id}/` → Get details of a specific book
 - **PUT** `/api/books/{id}/` → Update an existing book
 - **DELETE** `/api/books/{id}/` → Delete a book
+- **GET** `/api/reviews/` → List all reviews
+- **POST** `/api/reviews/` → Create a new review
+- **GET** `/api/reviews/{id}/` → Retrieve a specific review
+- **PUT** `/api/reviews/{id}/` → Update an existing review
+- **DELETE** `/api/reviews/{id}/` → Delete a review
 
 
 📩 Contact
