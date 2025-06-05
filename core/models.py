@@ -19,3 +19,14 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.pk}"
+
+
+class Review(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField()
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review {self.pk}"

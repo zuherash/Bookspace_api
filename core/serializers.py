@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Book, Order
+from .models import Book, Order, Review
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -29,5 +29,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
+        fields = "__all__"
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
         fields = "__all__"
     
