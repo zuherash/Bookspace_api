@@ -5,6 +5,9 @@ class Book(models.Model):
     author = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     available = models.BooleanField(default=True)
+    is_borrowable = models.BooleanField(default=True)
+    is_buyable = models.BooleanField(default=True)
+    copies_available = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
