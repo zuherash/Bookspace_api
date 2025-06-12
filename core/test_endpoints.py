@@ -69,3 +69,25 @@ class EndpointTests(TestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_book_borrow_and_buy(self):
+        book = Book.objects.create(title="Borrow", author="Auth", copies_available=2)
+        borrow_url = reverse('book-borrow', args=[book.id])
+        resp1 = self.client.post(borrow_url)
+        self.assertEqual(resp1.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp1.data["copies_available"], 1)
+        book.refresh_from_db()
+        self.assertEqual(book.copies_available, 1)
+
+        resp2 = self.client.post(borrow_url)
+        book.refresh_from_db()
+        self.assertEqual(resp2.data["copies_available"], 0)
+        self.assertFalse(book.available)
+
+        buy_book = Book.objects.create(title="Buy", author="Auth", copies_available=1)
+        buy_url = reverse('book-buy', args=[buy_book.id])
+        buy_resp = self.client.post(buy_url)
+        self.assertEqual(buy_resp.status_code, status.HTTP_200_OK)
+        buy_book.refresh_from_db()
+        self.assertEqual(buy_book.copies_available, 0)
+        self.assertFalse(buy_book.available)
+
