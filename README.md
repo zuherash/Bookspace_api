@@ -74,6 +74,7 @@ Here are the main API endpoints:
 - **GET** `/api/reviews/{id}/` → Retrieve a specific review
 - **PUT** `/api/reviews/{id}/` → Update an existing review
 - **DELETE** `/api/reviews/{id}/` → Delete a review
+- **POST** `/api/summarize/` → Summarize provided text
 
 
 📩 Contact

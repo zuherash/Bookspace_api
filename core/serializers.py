@@ -1,13 +1,25 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Book, Order, Review
+from .models import Book, Order, Review, Librarian, Reader
 
 
 class BookSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Book
+        fields = '__all__'
+
+
+class LibrarianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Librarian
+        fields = '__all__'
+
+
+class ReaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reader
         fields = '__all__'
 
 

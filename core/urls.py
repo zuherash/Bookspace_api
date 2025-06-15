@@ -8,6 +8,7 @@ from .views import (
     OrderListCreateAPIView,
     ReviewListCreateAPIView,
     ReviewRetrieveUpdateDestroyAPIView,
+    SummarizeAPIView,
     )
 
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path('orders/', OrderListCreateAPIView.as_view(), name='order-list-create'),
     path('reviews/', ReviewListCreateAPIView.as_view(), name='review-list-create'),
     path('reviews/<int:pk>/', ReviewRetrieveUpdateDestroyAPIView.as_view(), name='review-detail'),
+    path('summarize/', SummarizeAPIView.as_view(), name='summarize'),
 
 ]
