@@ -8,6 +8,7 @@ from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .filters import BookFilter
+from .summarizer import summarize_text
 
 class BookPagination(PageNumberPagination):
     page_size = 5
@@ -71,6 +72,15 @@ class ReviewRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_field = 'pk'
+
+
+class SummarizeAPIView(APIView):
+    def post(self, request):
+        text = request.data.get("text")
+        if not text:
+            return Response({"detail": "Text is required."}, status=status.HTTP_400_BAD_REQUEST)
+        summary = summarize_text(text)
+        return Response({"summary": summary})
 
 
 
